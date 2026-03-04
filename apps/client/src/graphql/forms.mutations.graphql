@@ -1,0 +1,7 @@
+#import "./fragments.graphql"
+
+mutation CreateForm($input: CreateFormInput!) {
+  createForm(input: $input) {
+    ...FormWithQuestionsFragment
+  }
+}

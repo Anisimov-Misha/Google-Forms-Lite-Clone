@@ -1,0 +1,35 @@
+fragment FormFragment on Form {
+  id
+  title
+  description
+  createdAt
+}
+
+fragment QuestionFragment on Question {
+  id
+  text
+  type
+  options
+  required
+}
+
+fragment FormWithQuestionsFragment on Form {
+  ...FormFragment
+  questions {
+    ...QuestionFragment
+  }
+}
+
+fragment AnswerFragment on Answer {
+  questionId
+  values
+}
+
+fragment FormResponseFragment on FormResponse {
+  id
+  formId
+  submittedAt
+  answers {
+    ...AnswerFragment
+  }
+}

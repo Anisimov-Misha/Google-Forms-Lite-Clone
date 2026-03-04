@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@theme {
+  --color-google-purple: #673ab7;
+  --color-google-lightPurple: #f0ebf8;
+  --color-google-bg: #f0ebf8;
+  --color-google-border: #dadce0;
+  --color-google-text: #202124;
+  --font-sans: Roboto, Arial, sans-serif;
+}
+
+body {
+  background-color: var(--color-google-bg);
+  color: var(--color-google-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.google-shadow {
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 1px 3px 0 rgba(0, 0, 0, .12);
+}

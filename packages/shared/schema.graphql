@@ -1,0 +1,73 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Answer {
+  questionId: ID!
+  values: [String!]!
+}
+
+input AnswerInput {
+  questionId: ID!
+  values: [String!]!
+}
+
+input CreateFormInput {
+  description: String
+  questions: [QuestionInput]
+  title: String!
+}
+
+type Form {
+  createdAt: String!
+  description: String
+  id: ID!
+  questions: [Question!]!
+  title: String!
+}
+
+type FormResponse {
+  answers: [Answer!]!
+  formId: ID!
+  id: ID!
+  submittedAt: String!
+}
+
+type Mutation {
+  createForm(input: CreateFormInput!): Form!
+  submitResponse(input: SubmitResponseInput!): FormResponse!
+}
+
+type Query {
+  form(id: ID!): Form!
+  forms: [Form!]!
+  responses(formId: ID!): [FormResponse!]!
+}
+
+type Question {
+  id: ID!
+  options: [String!]
+  required: Boolean!
+  text: String!
+  type: QuestionType!
+}
+
+input QuestionInput {
+  options: [String!]
+  required: Boolean! = false
+  text: String!
+  type: QuestionType!
+}
+
+"""Supported question types in a form"""
+enum QuestionType {
+  CHECKBOX
+  DATE
+  MULTIPLE_CHOICE
+  TEXT
+}
+
+input SubmitResponseInput {
+  answers: [AnswerInput]
+  formId: ID!
+}

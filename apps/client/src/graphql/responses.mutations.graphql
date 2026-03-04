@@ -1,0 +1,7 @@
+#import "./fragments.graphql"
+
+mutation SubmitResponse($input: SubmitResponseInput!) {
+  submitResponse(input: $input) {
+    ...FormResponseFragment
+  }
+}
