@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
-import { useGetResponsesQuery, useGetFormQuery } from '../store/api/generated';
+import { useGetResponsesQuery, useGetFormQuery, type Question } from '../store/api/generated';
 import { ArrowLeft, UserCircle } from 'lucide-react';
 
 export function ResponsesPage() {
@@ -17,7 +17,7 @@ export function ResponsesPage() {
   const questionMap = form.questions.reduce((acc, q) => {
     acc[q.id] = q;
     return acc;
-  }, {} as Record<string, any>);
+  }, {} as Record<string, Question>);
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">

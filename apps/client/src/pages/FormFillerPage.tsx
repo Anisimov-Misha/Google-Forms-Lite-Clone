@@ -9,6 +9,7 @@ export function FormFillerPage() {
   const { data, isLoading, error } = useGetFormQuery({ id: id! }, { skip: !id });
   const [submitResponse, { isLoading: isSubmitting, isSuccess }] = useSubmitResponseMutation();
   const [submitted, setSubmitted] = useState(false);
+  const [clearPending, setClearPending] = useState(false);
 
   const form = data?.form;
   const { answers, setAnswer, getAnswersPayload, validateRequired, clearForm } = useFormFiller(form?.questions || []);
@@ -46,12 +47,10 @@ export function FormFillerPage() {
   };
 
   const handleClear = () => {
-    const confirm = window.confirm('Are you sure you want to clear this form? This will remove all your answers.');
-    if (confirm) {
-      clearForm();
-      setValidationFailed(false);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    clearForm();
+    setValidationFailed(false);
+    setClearPending(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -156,13 +155,33 @@ export function FormFillerPage() {
             {isSubmitting ? 'Submitting...' : 'Submit'}
           </button>
 
-          <button
-            type="button"
-            onClick={handleClear}
-            className="text-sm font-medium text-red-600 hover:text-red-700 bg-red-50 p-3 sm:px-4 sm:py-2 rounded hover:bg-red-100 transition-colors w-full sm:w-auto mt-2 sm:mt-0"
-          >
-            Clear form
-          </button>
+          {clearPending ? (
+            <div className="flex items-center gap-2 bg-red-50 border border-red-200 rounded px-4 py-2">
+              <span className="text-sm text-red-700 font-medium">Clear all answers?</span>
+              <button
+                type="button"
+                onClick={handleClear}
+                className="text-sm font-medium text-white bg-red-600 hover:bg-red-700 px-3 py-1 rounded transition-colors"
+              >
+                Yes, clear
+              </button>
+              <button
+                type="button"
+                onClick={() => setClearPending(false)}
+                className="text-sm font-medium text-gray-600 hover:text-gray-800 px-3 py-1 rounded hover:bg-gray-200 transition-colors"
+              >
+                Cancel
+              </button>
+            </div>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setClearPending(true)}
+              className="text-sm font-medium text-red-600 hover:text-red-700 bg-red-50 p-3 sm:px-4 sm:py-2 rounded hover:bg-red-100 transition-colors w-full sm:w-auto mt-2 sm:mt-0"
+            >
+              Clear form
+            </button>
+          )}
         </div>
       </form>
     </div>

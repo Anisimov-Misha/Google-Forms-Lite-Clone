@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import type { Question } from '../store/api/generated';
 
-export function useFormFiller(questions: any[]) {
+export function useFormFiller(questions: Question[]) {
   const [answers, setAnswers] = useState<Record<string, string[]>>({});
 
   const setAnswer = (questionId: string, values: string[]) => {
